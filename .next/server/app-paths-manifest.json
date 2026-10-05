@@ -1,0 +1,14 @@
+{
+  "/page": "app/page.js",
+  "/apply/page": "app/apply/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/api/admin/sync-medical-proofs/route": "app/api/admin/sync-medical-proofs/route.js",
+  "/api/applications/route": "app/api/applications/route.js",
+  "/api/sync/status/route": "app/api/sync/status/route.js",
+  "/admin/applications/page": "app/admin/applications/page.js",
+  "/api/sync/proof-stream/route": "app/api/sync/proof-stream/route.js",
+  "/admin/applications/[id]/page": "app/admin/applications/[id]/page.js",
+  "/api/applications/[id]/route": "app/api/applications/[id]/route.js",
+  "/api/admin/medical-proofs/[filename]/route": "app/api/admin/medical-proofs/[filename]/route.js",
+  "/api/stats/route": "app/api/stats/route.js"
+}
