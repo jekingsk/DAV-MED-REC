@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if request is from authenticated user
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user has faculty/admin claims or role
+    function isFacultyOrAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'admin' ||
+        request.auth.token.role == 'faculty' ||
+        request.auth.token.email.matches('.*@davuniversity[.]org$')
+      );
+    }
+    
+    // Medical Leave Applications Collection
+    match /medical_leave_applications/{applicationId} {
+      
+      // Students can create their own applications
+      allow create: if true;
+      
+      // Students can read their own applications by matching Student ID or Registration Number
+      // Authorized faculty/admin can read all applications
+      allow read: if isFacultyOrAdmin() || (
+        isAuthenticated() && (
+          request.auth.uid == resource.data.studentDbId ||
+          request.auth.token.email == resource.data.email
+        )
+      );
+      
+      // Only authorized faculty/admin or server service-account can update applications and sync status
+      allow update: if isFacultyOrAdmin();
+      
+      // Applications cannot be deleted by students to preserve permanent audit records
+      allow delete: if false;
+    }
+    
+    // Sync Audit Logs Collection
+    match /sync_audit_logs/{logId} {
+      allow read, write: if isFacultyOrAdmin();
+    }
+  }
+}
