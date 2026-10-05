@@ -1,0 +1,11 @@
+{
+  "name": "dav-faculty-sync-agent",
+  "version": "1.0.0",
+  "description": "Faculty PC background sync agent for DAV University Medical Leave Portal",
+  "main": "faculty-sync-agent.js",
+  "scripts": {
+    "start": "node faculty-sync-agent.js"
+  },
+  "author": "DAV University",
+  "license": "ISC"
+}
